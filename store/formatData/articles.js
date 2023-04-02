@@ -1,8 +1,7 @@
 import _ from "lodash";
-import { formatDate, formatDateSecond, getGender, getColorsByLabel } from "../../mixins/utils.js";
-import { categories, colors } from '../../static/constants/index'
-const link = process.env.baseUrl;
-const devise = process.env.devise;
+import { formatDate, formatDateSecond, getGender, getColorsByLabel, addUnityVolumToProduct } from "../../mixins/utils.js";
+import { categories, colors, link, devise, volumeUnit } from '../../static/constants'
+
 export const articlesFormat = (content) => {
   if (content.data && content.data?.length) {
     return {
@@ -52,6 +51,8 @@ export const articleFormat = (content) => {
         promoPrice: content?.data?.attributes?.promoPrice,
         promotion: content?.data?.attributes?.promotion,
         quantity: content?.data?.attributes?.quantity,
+        isLiquide: content?.data?.attributes?.isLiquide,
+        sizeLiquide: content?.data?.attributes?.sizeLiquide && content?.data?.attributes?.sizeLiquide?.length ? addUnityVolumToProduct(content?.data?.attributes?.sizeLiquide, volumeUnit) : null,
         hasColor: content?.data?.attributes?.hasColors,
         hasSize: content?.data?.attributes?.hasSize,
         selectColors: content?.data?.attributes?.colors && content?.data?.attributes?.colors?.length ? getColorsByLabel(colors, content?.data?.attributes?.colors) : null,

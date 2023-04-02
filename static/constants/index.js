@@ -1,3 +1,7 @@
+export const link = process.env.baseUrl;
+export const devise = process.env.devise;
+export const volumeUnit = process.env.volumeUnit;
+
 export const urlWS = {
     ARTICLE: (id_article) => `/api/articles/${id_article}?populate=*`,
     ARTICLES: (paginationSettings) => `/api/articles?pagination[page]=${paginationSettings?.page}&pagination[pageSize]=${paginationSettings?.pageSize}&populate=*`,
