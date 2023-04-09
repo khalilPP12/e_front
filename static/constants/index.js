@@ -29,4 +29,10 @@ export const colors = [
     { key: "Green", label: 'Vert', codeColor: "#008000" },
     { key: "Red", label: 'Rouge', codeColor: "#FF0000" },
     { key: "Blue", label: 'Bleu', codeColor: "#0000FF" },
-] 
+]
+export const route = [
+    { label: 'Acceuil', path: '/', disabled: false },
+    { label: 'Produits', path: '/', disabled: true },
+    { label: 'Commanande', path: '/', disabled: true },
+    { label: 'A propos de nous', path: '/', disabled: true },
+]

@@ -134,8 +134,6 @@ export default {
       this.$refs["my-modal"].hide();
     },
     toggleModal() {
-      // We pass the ID of the button that we want to return focus to
-      // when the modal has hidden
       this.$refs["my-modal"].toggle("#toggle-btn");
     },
   },
@@ -149,8 +147,6 @@ export default {
 };
 </script>
 <style scoped>
-.img_plugin {
-}
 .image_box {
   width: 100%;
 }
