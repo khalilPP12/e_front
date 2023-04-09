@@ -19,6 +19,7 @@ export default {
     baseUrl: process.env.BASE_URL,
     devise: process.env.DEVISE,
     volumeUnit: process.env.VOLUMEUNIT,
+    procent: process.env.PORCENTAGE,
   },
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [],

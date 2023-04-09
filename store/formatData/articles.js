@@ -1,6 +1,6 @@
 import _ from "lodash";
 import { formatDate, formatDateSecond, getGender, getColorsByLabel, addUnityVolumToProduct } from "../../mixins/utils.js";
-import { categories, colors, link, devise, volumeUnit } from '../../static/constants'
+import { categories, colors, link, devise, volumeUnit, procent } from '../../static/constants'
 
 export const articlesFormat = (content) => {
   if (content.data && content.data?.length) {
@@ -52,13 +52,18 @@ export const articleFormat = (content) => {
         promotion: content?.data?.attributes?.promotion,
         quantity: content?.data?.attributes?.quantity,
         isLiquide: content?.data?.attributes?.isLiquide,
+        gender: content?.data?.attributes?.Gender && content?.data?.attributes?.Gender?.length ? _.map(content?.data?.attributes?.Gender, function T(i) {
+          return getGender(i)
+        })[0] : null,
         sizeLiquide: content?.data?.attributes?.sizeLiquide && content?.data?.attributes?.sizeLiquide?.length ? addUnityVolumToProduct(content?.data?.attributes?.sizeLiquide, volumeUnit) : null,
         hasColor: content?.data?.attributes?.hasColors,
         hasSize: content?.data?.attributes?.hasSize,
+        pourcentage: content?.data?.attributes?.pourcentage ? "-" + content?.data?.attributes?.pourcentage?.toString() + procent : null,
         selectColors: content?.data?.attributes?.colors && content?.data?.attributes?.colors?.length ? getColorsByLabel(colors, content?.data?.attributes?.colors) : null,
         size: content?.data?.attributes?.sizeArticle && content?.data?.attributes?.sizeArticle?.length ? content?.data?.attributes?.sizeArticle : null,
         creationArticle: formatDate(content?.data?.attributes?.publishedAt),
         MAJArticle: formatDateSecond(content?.data?.attributes?.updatedAt),
+        principalImage: link + content?.data?.attributes?.imagePresentation?.data?.attributes?.url,
         images: content?.data?.attributes?.images_products.data?.length ? _.map(content?.data?.attributes?.images_products?.data, function formatImages(i) {
           return {
             url: link + i?.attributes?.url,

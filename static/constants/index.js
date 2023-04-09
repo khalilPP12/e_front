@@ -1,6 +1,7 @@
 export const link = process.env.baseUrl;
 export const devise = process.env.devise;
 export const volumeUnit = process.env.volumeUnit;
+export const procent = process.env.procent;
 
 export const urlWS = {
     ARTICLE: (id_article) => `/api/articles/${id_article}?populate=*`,

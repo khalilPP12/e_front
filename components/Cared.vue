@@ -10,7 +10,9 @@
         }}{{ categorie ? categorie : "" }}</span
       >
       <h4>
-        <NuxtLink class="btnBuy" :to="`/article/${id}`">{{ title }}</NuxtLink>
+        <NuxtLink class="btnBuy" :to="`/article/${id}?a=${title}`">{{
+          title
+        }}</NuxtLink>
       </h4>
       <p>
         {{ description }}
