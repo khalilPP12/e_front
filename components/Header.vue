@@ -47,7 +47,7 @@ export default {
   },
 };
 </script>
-<style lang="css" scoped>
+<style  scoped>
 .logo_mag {
   width: 40px;
   height: 40px;

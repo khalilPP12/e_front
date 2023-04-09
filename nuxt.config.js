@@ -17,9 +17,6 @@ export default {
   },
   env: {
     baseUrl: process.env.BASE_URL,
-    devise: process.env.DEVISE,
-    volumeUnit: process.env.VOLUMEUNIT,
-    procent: process.env.PORCENTAGE,
   },
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [],
@@ -39,7 +36,6 @@ export default {
     // https://go.nuxtjs.dev/bootstrap
     "bootstrap-vue/nuxt",
     "@nuxtjs/axios",
-    // "@nuxt/builder",
     "@nuxtjs/auth-next",
     [
       "@nuxtjs/i18n",

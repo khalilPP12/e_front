@@ -1,13 +1,13 @@
 import { urlWS } from "../static/constants";
 import { articlesFormat, articleFormat, slideArticleFormat } from "../store/formatData/articles";
-//// My Initial Values
+
 export const state = () => ({
   article: {},
   articles: [],
   slideArticles: [],
   sendForms: null
 });
-//// My Setters is Here
+
 export const mutations = {
   setArticle(state, payload) {
     state.article = payload;
@@ -22,7 +22,7 @@ export const mutations = {
     state.sendForms = payload
   }
 };
-//// My Getters is Here
+
 export const getters = {
   getArticle(state) {
     return articleFormat(state.article);
@@ -37,7 +37,7 @@ export const getters = {
     return state.sendForms
   }
 };
-////  Call Api'S
+
 export const actions = {
   async getArticle({ commit }, id_article) {
     let responseApi = await this.$axios.$get(urlWS.ARTICLE(id_article))
