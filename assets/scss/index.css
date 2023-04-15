@@ -1,0 +1,12 @@
+.modal-header {
+    border-bottom: unset !important;
+
+}
+
+.modal {
+    top: 160px;
+    ;
+}
+.modal-backdrop {
+    opacity: 0.8;
+}

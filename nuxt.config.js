@@ -19,10 +19,13 @@ export default {
     baseUrl: process.env.BASE_URL,
   },
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [],
+  css: ['@/assets/scss/_mixins.scss',
+    '@/assets/scss/index.css',
+    '@/assets/scss/_modal.scss',
+    '@/assets/scss/_inputCustom.scss'],
   ssr: false,
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [{ src: "~/plugins/i18n.js" }, { src: "~/plugins/axios" },
+  plugins: [{ src: "~/plugins/i18n.js" }, { src: "~/plugins/axios" }, { src: "~/plugins/loading" }, { src: "~/plugins/vueFormulate" },
   { src: "~/plugins/skeleton", ssr: false },
   ],
 

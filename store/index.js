@@ -44,7 +44,7 @@ export const actions = {
     return commit("setArticle", responseApi);
   },
   async getArticles({ commit }, paginationSettings) {
-    let responseApi = await this.$axios.$get(urlWS.ARTICLES(paginationSettings));
+    let responseApi = await this.$axios.$get(urlWS.ARTICLES(paginationSettings))
     return commit("setArticles", responseApi);
   },
   async getSlideArticle({ commit }) {
