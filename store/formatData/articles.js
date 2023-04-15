@@ -7,21 +7,21 @@ export const articlesFormat = (content) => {
     return {
       data: _.map(content.data, function fromatMyObject(i) {
         return {
-          id: i.id,
-          title: i.attributes.nameArticle,
-          quantity: i.attributes.quantity,
-          promoPrice: i.attributes.promoPrice,
-          price: i.attributes.price,
-          oldPrice: i.attributes.oldPrice,
-          gender: i.attributes?.Gender && i.attributes?.Gender?.length ? _.map(i.attributes.Gender, function T(i) {
+          id: i?.id,
+          title: i?.attributes?.nameArticle,
+          quantity: i?.attributes?.quantity,
+          promoPrice: i?.attributes?.promoPrice,
+          price: i?.attributes?.price,
+          oldPrice: i?.attributes?.oldPrice,
+          gender: i?.attributes?.Gender && i?.attributes?.Gender?.length ? _.map(i?.attributes?.Gender, function T(i) {
             return getGender(i)
-          })[0] : null,
-          isPromo: i.attributes.promotion,
-          categorie: i.attributes.categories && i.attributes.categories.length ? _.find(categories, {
-            en: i.attributes.categories[0]
+          })?.[0] : null,
+          isPromo: i?.attributes?.promotion,
+          categorie: i?.attributes?.categories && i?.attributes?.categories?.length ? _.find(categories, {
+            en: i?.attributes?.categories?.[0]
           })?.fr : null,
-          description: i.attributes.description,
-          nameBtn: i.attributes.nameBtn,
+          description: i?.attributes?.description,
+          nameBtn: i?.attributes?.nameBtn,
           image: link + i?.attributes?.imagePresentation?.data?.attributes?.url,
           images: _.map(
             i?.attributes?.images_products?.data,
@@ -54,7 +54,7 @@ export const articleFormat = (content) => {
         isLiquide: content?.data?.attributes?.isLiquide,
         gender: content?.data?.attributes?.Gender && content?.data?.attributes?.Gender?.length ? _.map(content?.data?.attributes?.Gender, function T(i) {
           return getGender(i)
-        })[0] : null,
+        })?.[0] : null,
         sizeLiquide: content?.data?.attributes?.sizeLiquide && content?.data?.attributes?.sizeLiquide?.length ? addUnityVolumToProduct(content?.data?.attributes?.sizeLiquide, volumeUnit) : null,
         hasColor: content?.data?.attributes?.hasColors,
         hasSize: content?.data?.attributes?.hasSize,

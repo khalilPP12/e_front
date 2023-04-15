@@ -37,7 +37,7 @@
             <b-button id="show-btn" @click="showModal">Je le veux</b-button>
             <b-modal ref="my-modal" hide-footer :title="article.data.name">
               <FormulateForm
-                class="row"
+                class="row all-inputs"
                 @submit="submitHandler"
                 v-model="values"
                 :schema="schema"
@@ -49,7 +49,6 @@
     </div>
   </div>
 </template>
-
 <script>
 import { mapGetters } from "vuex";
 import DetailsArticle from "../../components/Articles/DetailsArticle.vue";
@@ -69,37 +68,56 @@ export default {
       values: {},
       schema: [
         {
-          class: "w-100",
+          class: "w-100 style-global-input",
           type: "text",
           name: "fullName",
-          label: "Nom complet",
+          placeholder: "Nom complet",
           validation: "required",
+          "validation-messages": {
+            required: "Nom complet est requis",
+          },
         },
         {
-          class: "w-100",
+          class: "w-100 style-global-input",
           type: "email",
           name: "email",
-          label: "Email",
-          validation: "required",
+          placeholder: "Email",
+          validation: "required|email",
+          "validation-messages": {
+            required: "Email est requis",
+            email: "Cette forme ne convient pas ex: magstore@magstore.com",
+          },
         },
         {
-          class: "w-100",
+          class: "w-100 style-global-input",
           type: "number",
           name: "phoneNumber",
-          label: "Numéro de téléphone",
+          placeholder: "Numéro de téléphone",
           validation: "required",
+          "validation-messages": {
+            required: "Numéro de téléphone est requis",
+          },
         },
         {
-          class: "w-100",
+          class: "w-100 style-global-input",
           type: "text",
           name: "homeAdress",
-          label: "Adresse",
-          // validation: "^required|confirm:password",
+          placeholder: "Adresse",
+          "validation-messages": {
+            required: "Adress est requis",
+          },
           validation: "required",
         },
         {
-          type: "submit",
-          label: "Valider la commande",
+          component: "div",
+          class: "btn-submit",
+          children: [
+            {
+              class: "btn-click-submit",
+              type: "submit",
+              label: "Valider la commande",
+            },
+          ],
         },
       ],
     };
@@ -111,7 +129,6 @@ export default {
       }
     },
   },
-
   methods: {
     submitHandler() {
       let payload = {
