@@ -1,1 +1,58 @@
-{ "title": "MaG Store", "Promotion": "Promotion", "btnBuy": "Acheter" }
+{
+  "title": "MaG Store",
+  "Promotion": "Promotion",
+  "btnBuy": "Acheter",
+  "menu": {
+    "accueil": "Acceuil",
+    "products": "Produits",
+    "commade": "Commanande",
+    "aboutUs": "A propos de nous"
+  },
+  "categories": {
+    "all": "Tout",
+    "beauty": "Beauté",
+    "gadgets": "Gadgets",
+    "accessories": "Accessoires",
+    "clothes": "Vêtements",
+    "electronics": "Électroniques",
+    "others": "Autres"
+  },
+  "genders": {
+    "male": "Homme",
+    "female": "Femme"
+  },
+  "colors": {
+    "White": "Blanc",
+    "Black": "Noir",
+    "Yellow": "Jaune",
+    "Green": "Vert",
+    "Red": "Rouge",
+    "Blue": "Bleu"
+  },
+  "forms": {
+    "fullName": {
+      "label": "Nom complet",
+      "placeholder": "nom complet",
+      "messageErr": "Nom complet est requis."
+    },
+    "email": {
+      "placeholder": "email",
+      "label": "Email",
+      "messageErr": {
+        "required": "Email est requis.",
+        "email": "Cette forme ne convient pas ex: magstore@magstore.com"
+      }
+    },
+    "phoneNumber": {
+      "placeholder": "numéro de téléphone",
+      "label": "Numéro de téléphone",
+      "messageErr": "Numéro de téléphone est requis."
+    },
+    "homeAdress": {
+      "placeholder": "adresse",
+      "label": "Adresse",
+      "messageErr": "Adresse est requis."
+    },
+    "boutton": "Valider la commande"
+  }
+}

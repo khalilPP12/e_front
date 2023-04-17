@@ -34,13 +34,16 @@
             :priceOld="article.data.oldPrice"
           />
           <div class="d-flex justify-content-end">
-            <b-button id="show-btn" @click="showModal">Je le veux</b-button>
+            <b-button id="show-btn" @click="showModal">Je le veux </b-button>
+
             <b-modal ref="my-modal" hide-footer :title="article.data.name">
               <FormulateForm
+                name="myForm"
+                :isLoading="loading"
                 class="row all-inputs"
                 @submit="submitHandler"
                 v-model="values"
-                :schema="schema"
+                :schema="inputs"
               />
             </b-modal>
           </div>
@@ -54,74 +57,26 @@ import { mapGetters } from "vuex";
 import DetailsArticle from "../../components/Articles/DetailsArticle.vue";
 import imageViewer from "vue-image-viewer";
 import Vue from "vue";
+import VueLoadingButton from "vue-loading-button";
 import { formatDateToBFF } from "../../mixins/utils.js";
+import { schema } from "/static/constants/forms";
 Vue.use(imageViewer);
 export default {
   layout: "default",
   components: {
     DetailsArticle,
+    VueLoadingButton,
   },
   data() {
     return {
       id: this.$route.params.id,
       images: [],
+      loading: true,
       values: {},
-      schema: [
-        {
-          class: "w-100 style-global-input",
-          type: "text",
-          name: "fullName",
-          placeholder: "Nom complet",
-          validation: "required",
-          "validation-messages": {
-            required: "Nom complet est requis",
-          },
-        },
-        {
-          class: "w-100 style-global-input",
-          type: "email",
-          name: "email",
-          placeholder: "Email",
-          validation: "required|email",
-          "validation-messages": {
-            required: "Email est requis",
-            email: "Cette forme ne convient pas ex: magstore@magstore.com",
-          },
-        },
-        {
-          class: "w-100 style-global-input",
-          type: "number",
-          name: "phoneNumber",
-          placeholder: "Numéro de téléphone",
-          validation: "required",
-          "validation-messages": {
-            required: "Numéro de téléphone est requis",
-          },
-        },
-        {
-          class: "w-100 style-global-input",
-          type: "text",
-          name: "homeAdress",
-          placeholder: "Adresse",
-          "validation-messages": {
-            required: "Adress est requis",
-          },
-          validation: "required",
-        },
-        {
-          component: "div",
-          class: "btn-submit",
-          children: [
-            {
-              class: "btn-click-submit",
-              type: "submit",
-              label: "Valider la commande",
-            },
-          ],
-        },
-      ],
+      inputs: schema,
     };
   },
+  //  this.$formulate.reset('myForm');
   watch: {
     article() {
       if (this.article.data.images && this.article.data.images.length) {
@@ -131,7 +86,7 @@ export default {
   },
   methods: {
     submitHandler() {
-      let payload = {
+      const payload = {
         ...this.values,
         isPromoArticle: this.article?.data?.promotion,
         dateCommande: formatDateToBFF(new Date()),
@@ -158,7 +113,6 @@ export default {
     ...mapGetters({ article: "getArticle" }),
   },
   mounted() {
-    console.log("this.$route", this.id);
     this.$store.dispatch("getArticle", this.id);
   },
 };
