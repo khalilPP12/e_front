@@ -52,8 +52,13 @@ export const actions = {
     return commit("setSlideArticle", responseApi.data?.attributes.articles.data)
   },
   async sendForms({ commit }, payload) {
-    let response = await this.$axios.$post(urlWS.SEND_FORMS, { data: payload })
+    let response = await this.$axios.$post(urlWS.SEND_FORMS, { data: payload }).then(res => {
+      if (res?.data?.id) console.log('res', res)
+
+    });
     return commit('setOkForms', response.data)
   }
 };
+
+
 
