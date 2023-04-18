@@ -98,7 +98,7 @@ a {
   text-decoration: none;
 }
 .product-card {
-  width: 380px;
+  width: 100%;
   position: relative;
   box-shadow: 0 2px 7px #dfdfdf;
   margin: 50px auto;

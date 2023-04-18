@@ -16,13 +16,18 @@
               </div>
             </div>
             <div
-              class="col-md-6 d-flex justify-content-center align-items-center"
+              class="col-md-6 d-flex justify-content-center align-items-center p-0"
             >
-              <img :src="article.data.principalImage" />
+              <div
+                class="img-presentation"
+                v-bind:style="{
+                  backgroundImage: 'url(' + article.data.principalImage + ')',
+                }"
+              ></div>
             </div>
           </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 box-content">
           <DetailsArticle
             :gender="article.data.gender"
             :percent="article.data.pourcentage"
@@ -33,20 +38,34 @@
             :price="article.data.price"
             :priceOld="article.data.oldPrice"
           />
-          <div class="d-flex justify-content-end">
+          <div class="d-flex justify-content-between">
+            <div class="bloc-price d-flex">
+              <span
+                class="promo-price-old"
+                :class="{ isBared: article.data.promotion }"
+              >
+                {{
+                  article.data.promotion
+                    ? article.data.oldPrice
+                    : article.data.price
+                }}
+              </span>
+              <span v-if="article.data.promotion" class="promo-price">
+                {{ article.data.promoPrice }}</span
+              >
+            </div>
             <b-button id="show-btn" @click="showModal">Je le veux </b-button>
-
-            <b-modal ref="my-modal" hide-footer :title="article.data.name">
-              <FormulateForm
-                name="myForm"
-                :isLoading="loading"
-                class="row all-inputs"
-                @submit="submitHandler"
-                v-model="values"
-                :schema="inputs"
-              />
-            </b-modal>
           </div>
+          <b-modal ref="my-modal" hide-footer :title="article.data.name">
+            <FormulateForm
+              name="myForm"
+              :isLoading="loading"
+              class="row all-inputs"
+              @submit="submitHandler"
+              v-model="values"
+              :schema="inputs"
+            />
+          </b-modal>
         </div>
       </div>
     </div>
@@ -85,6 +104,18 @@ export default {
     },
   },
   methods: {
+    toast(toaster, append = false) {
+      this.$bvToast.toast(
+        `Votre commande a été bien envoyer on vous re contacter maximum un jour `,
+        {
+          title: `Mag Store vous remercier`,
+          toaster: toaster,
+          autoHideDelay: 5000,
+          solid: true,
+          appendToast: append,
+        }
+      );
+    },
     submitHandler() {
       const payload = {
         ...this.values,
@@ -93,7 +124,15 @@ export default {
         article: this.article?.data?.id,
         article_ID: this.article?.data?.id,
       };
-      this.$store.dispatch("sendForms", payload);
+      this.$store.dispatch("sendForms", payload).then((e) => {
+        if (e?.data?.id) {
+          this.hideModal();
+          // this.$router.push({
+          //   path: this.localePath("/"),
+          // });
+          this.toast("b-toaster-top-right");
+        }
+      });
     },
     imageView(index) {
       this.$imageViewer.index(index);
@@ -117,7 +156,12 @@ export default {
   },
 };
 </script>
-<style scoped>
+<style lang="scss" scoped>
+.box-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 .image_box {
   width: 100%;
 }
@@ -132,5 +176,26 @@ input {
   text-transform: uppercase;
   border-radius: unset;
   background-color: #000;
+}
+.bloc-price {
+  .promo-price-old {
+    font-size: 1rem;
+    margin-right: 15px;
+    font-weight: 700;
+    &.isBared {
+      text-decoration: line-through !important;
+      font-weight: 400;
+    }
+  }
+  .promo-price {
+    font-weight: 700;
+    color: #d50032;
+  }
+}
+.img-presentation {
+  height: 310px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
 }
 </style>

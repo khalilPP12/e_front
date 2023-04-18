@@ -28,7 +28,7 @@
     </div>
     <div class="text-title">{{ nameArticle }}</div>
     <div class="gender">{{ gender }}</div>
-    <div class="name-article">Eau de parfum</div>
+    <!-- <div class="name-article">Eau de parfum</div> -->
     <div class="w-75 description">
       {{ description }}
     </div>
