@@ -1,12 +1,19 @@
 import i18n from "./plugins/i18n";
+import Vue from 'vue'
+import VueI18n from 'vue-i18n'
+Vue.use(VueI18n)
+
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
+  ssr: false,
+
 
   head: {
     title: "MaG Store",
     htmlAttrs: {
       lang: "en",
     },
+
     meta: [
       { charset: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
@@ -17,13 +24,16 @@ export default {
   },
   env: {
     baseUrl: process.env.BASE_URL,
-    devise: process.env.DEVISE,
   },
-  // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [],
-  ssr: false,
+  css: ['@/assets/scss/_mixins.scss',
+    '@/assets/scss/index.css',
+    '@/assets/scss/_modal.scss',
+    '@/assets/scss/_inputCustom.scss'],
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [{ src: "~/plugins/i18n.js" }, { src: "~/plugins/axios" },
+  plugins: [{ src: "~/plugins/i18n.js" },
+  { src: "~/plugins/axios" },
+  { src: "~/plugins/loading" },
+  { src: "~/plugins/vueFormulate" },
   { src: "~/plugins/skeleton", ssr: false },
   ],
 
@@ -37,7 +47,6 @@ export default {
     // https://go.nuxtjs.dev/bootstrap
     "bootstrap-vue/nuxt",
     "@nuxtjs/axios",
-    // "@nuxt/builder",
     "@nuxtjs/auth-next",
     [
       "@nuxtjs/i18n",

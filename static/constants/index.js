@@ -1,3 +1,7 @@
+export const link = process.env.baseUrl;
+export const devise = 'MAD';
+export const volumeUnit = 'ml';
+export const procent = '%';
 export const urlWS = {
     ARTICLE: (id_article) => `/api/articles/${id_article}?populate=*`,
     ARTICLES: (paginationSettings) => `/api/articles?pagination[page]=${paginationSettings?.page}&pagination[pageSize]=${paginationSettings?.pageSize}&populate=*`,
@@ -24,4 +28,10 @@ export const colors = [
     { key: "Green", label: 'Vert', codeColor: "#008000" },
     { key: "Red", label: 'Rouge', codeColor: "#FF0000" },
     { key: "Blue", label: 'Bleu', codeColor: "#0000FF" },
-] 
+]
+export const route = [
+    { label: 'Acceuil', path: '/', disabled: false },
+    { label: 'Produits', path: '/', disabled: true },
+    { label: 'Commanande', path: '/', disabled: true },
+    { label: 'A propos de nous', path: '/', disabled: true },
+]

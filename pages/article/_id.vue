@@ -1,67 +1,101 @@
 <template>
   <div>
-    <div v-if="article">
-      {{ article }}
-      <div class="image_box row">
-        <img
-          class="col-md-6 p-0"
-          v-for="(item, index) in article.data.images"
-          :key="index"
-          :src="item.url"
-          @click="imageView(index)"
-        />
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="image_box row">
+                <img
+                  class="col-md-6 p-0 img_plugin"
+                  v-for="(item, index) in article.data.images"
+                  :key="index"
+                  :src="item.url"
+                  @click="imageView(index)"
+                />
+              </div>
+            </div>
+            <div
+              class="col-md-6 d-flex justify-content-center align-items-center p-0"
+            >
+              <div
+                class="img-presentation"
+                v-bind:style="{
+                  backgroundImage: 'url(' + article.data.principalImage + ')',
+                }"
+              ></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 box-content">
+          <DetailsArticle
+            :gender="article.data.gender"
+            :percent="article.data.pourcentage"
+            :nameArticle="article.data.name"
+            :isPromo="article.data.promotion"
+            :promoPrice="article.data.promoPrice"
+            :description="article.data.description"
+            :price="article.data.price"
+            :priceOld="article.data.oldPrice"
+          />
+          <div class="d-flex justify-content-between">
+            <div class="bloc-price d-flex">
+              <span
+                class="promo-price-old"
+                :class="{ isBared: article.data.promotion }"
+              >
+                {{
+                  article.data.promotion
+                    ? article.data.oldPrice
+                    : article.data.price
+                }}
+              </span>
+              <span v-if="article.data.promotion" class="promo-price">
+                {{ article.data.promoPrice }}</span
+              >
+            </div>
+            <b-button id="show-btn" @click="showModal">Je le veux </b-button>
+          </div>
+          <b-modal ref="my-modal" hide-footer :title="article.data.name">
+            <FormulateForm
+              name="myForm"
+              :isLoading="loading"
+              class="row all-inputs"
+              @submit="submitHandler"
+              v-model="values"
+              :schema="inputs"
+            />
+          </b-modal>
+        </div>
       </div>
     </div>
-    <FormulateForm @submit="submitHandler" v-model="values" :schema="schema" />
   </div>
 </template>
-
 <script>
 import { mapGetters } from "vuex";
+import DetailsArticle from "../../components/Articles/DetailsArticle.vue";
 import imageViewer from "vue-image-viewer";
 import Vue from "vue";
+import VueLoadingButton from "vue-loading-button";
 import { formatDateToBFF } from "../../mixins/utils.js";
+import { schema } from "/static/constants/forms";
 Vue.use(imageViewer);
 export default {
   layout: "default",
+  components: {
+    DetailsArticle,
+    VueLoadingButton,
+  },
   data() {
     return {
       id: this.$route.params.id,
       images: [],
+      loading: true,
       values: {},
-      schema: [
-        {
-          type: "text",
-          name: "fullName",
-          label: "Nom complet",
-          validation: "required",
-        },
-        {
-          type: "email",
-          name: "email",
-          label: "Email",
-          validation: "required",
-        },
-        {
-          type: "number",
-          name: "phoneNumber",
-          label: "Numéro de téléphone",
-          validation: "required",
-        },
-        {
-          type: "text",
-          name: "homeAdress",
-          label: "Adresse",
-          // validation: "^required|confirm:password",
-          validation: "required",
-        },
-        {
-          type: "submit",
-          label: "Valider la commande",
-        },
-      ],
+      inputs: schema,
     };
   },
+  //  this.$formulate.reset('myForm');
   watch: {
     article() {
       if (this.article.data.images && this.article.data.images.length) {
@@ -69,38 +103,99 @@ export default {
       }
     },
   },
-
   methods: {
+    toast(toaster, append = false) {
+      this.$bvToast.toast(
+        `Votre commande a été bien envoyer on vous re contacter maximum un jour `,
+        {
+          title: `Mag Store vous remercier`,
+          toaster: toaster,
+          autoHideDelay: 5000,
+          solid: true,
+          appendToast: append,
+        }
+      );
+    },
     submitHandler() {
-      let payload = {
+      const payload = {
         ...this.values,
         isPromoArticle: this.article?.data?.promotion,
         dateCommande: formatDateToBFF(new Date()),
         article: this.article?.data?.id,
         article_ID: this.article?.data?.id,
       };
-      this.$store.dispatch("sendForms", payload);
+      this.$store.dispatch("sendForms", payload).then((e) => {
+        if (e?.data?.id) {
+          this.hideModal();
+          // this.$router.push({
+          //   path: this.localePath("/"),
+          // });
+          this.toast("b-toaster-top-right");
+        }
+      });
     },
     imageView(index) {
       this.$imageViewer.index(index);
       this.$imageViewer.show();
+    },
+    showModal() {
+      this.$refs["my-modal"].show();
+    },
+    hideModal() {
+      this.$refs["my-modal"].hide();
+    },
+    toggleModal() {
+      this.$refs["my-modal"].toggle("#toggle-btn");
     },
   },
   computed: {
     ...mapGetters({ article: "getArticle" }),
   },
   mounted() {
-    console.log("this.$route", this.id);
     this.$store.dispatch("getArticle", this.id);
   },
 };
 </script>
-<style scoped>
+<style lang="scss" scoped>
+.box-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 .image_box {
-  width: 50%;
+  width: 100%;
 }
 .image_box img {
-  height: 300px;
-  width: 100px;
+  height: auto;
+  width: 100%;
+}
+input {
+  width: 100%;
+}
+#show-btn {
+  text-transform: uppercase;
+  border-radius: unset;
+  background-color: #000;
+}
+.bloc-price {
+  .promo-price-old {
+    font-size: 1rem;
+    margin-right: 15px;
+    font-weight: 700;
+    &.isBared {
+      text-decoration: line-through !important;
+      font-weight: 400;
+    }
+  }
+  .promo-price {
+    font-weight: 700;
+    color: #d50032;
+  }
+}
+.img-presentation {
+  height: 310px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
 }
 </style>

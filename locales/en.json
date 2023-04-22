@@ -1,1 +1,58 @@
-{ "title": "MaG Store", "Promotion": "Promotion", "btnBuy": "Buy" }
+{
+  "title": "MaG Store",
+  "Promotion": "Promotions",
+  "btnBuy": "Buy",
+  "menu": {
+    "accueil": "Home",
+    "products": "Products",
+    "commade": "Order",
+    "aboutUs": "About us"
+  },
+  "categories": {
+    "all": "All",
+    "beauty": "Beauty",
+    "gadgets": "Gadgets",
+    "accessories": "Accessories",
+    "clothes": "Clothes",
+    "electronics": "Electronics",
+    "others": "Others"
+  },
+  "genders": {
+    "male": "Men",
+    "female": "Women"
+  },
+  "colors": {
+    "White": "White",
+    "Black": "Black",
+    "Yellow": "Yellow",
+    "Green": "Green",
+    "Red": "Red",
+    "Blue": "Blue"
+  },
+  "forms": {
+    "fullName": {
+      "label": "Full name",
+      "placeholder": "full name",
+      "messageErr": "full name is required."
+    },
+    "email": {
+      "placeholder": "email",
+      "label": "Email",
+      "messageErr": {
+        "required": "email is required.",
+        "email": "this form is not valid ex: magstore@magstore.com"
+      }
+    },
+    "phoneNumber": {
+      "placeholder": "phone number",
+      "label": "Phone number",
+      "messageErr": "phone number is rquired."
+    },
+    "homeAdress": {
+      "placeholder": "adress",
+      "label": "Adress",
+      "messageErr": "adress is required."
+    },
+    "boutton": "Validate the order"
+  }
+}
